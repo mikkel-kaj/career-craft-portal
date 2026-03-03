@@ -11,7 +11,7 @@ const WorkExperience = () => {
                         role="CTO"
                         period="Oct 2025 - Mar 2026"
                         defaultOpen={true}
-                        description="Sole technical hire at a NEMO-licensed intraday power exchange. Designed and delivered a complete production-grade exchange platform from scratch in 4 months."
+                        description="Sole technical hire at an intraday power exchange. Designed and delivered a complete production-grade exchange platform from scratch in 4 months."
                         responsibilities={[
                             "Built a low-latency C++23 multi-process matching engine with isolated order-entry and market-data paths",
                             "Implemented actor-based concurrency using std::jthread actors and custom lock-free MPMC queues",

@@ -19,7 +19,7 @@ const CurrentRoles = () => {
 
                     <div className="space-y-4">
                         <p className="text-gray-100 font-medium">
-                            Sole technical hire at a NEMO-licensed intraday power exchange. I designed and delivered a full production-grade exchange platform from scratch in four months.
+                            Sole technical hire at an intraday power exchange. I designed and delivered a full production-grade exchange platform from scratch in four months.
                         </p>
                         <ul className="list-disc list-inside text-gray-100 space-y-2 font-medium">
                             <li>Built a low-latency multi-process C++23 trading engine with separated order-entry and market-data paths.</li>
