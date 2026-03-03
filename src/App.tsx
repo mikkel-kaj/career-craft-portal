@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
 import ScrollToTop from "./components/ScrollToTop";
+import AvailabilityBadge from "./components/AvailabilityBadge";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ const App = () => (
       <BrowserRouter>
         <ScrollToTop />
         <Navbar />
+        <AvailabilityBadge />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/profile" element={<Profile />} />
