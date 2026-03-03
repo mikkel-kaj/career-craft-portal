@@ -118,6 +118,13 @@ const ConsultationForm = ({ size = "default" }: ConsultationFormProps) => {
             </span>
             <div className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/30 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity" />
           </Button>
+          <p className="text-xs text-gray-400 text-center -mt-3">
+            Nothing happens? Send me an e-mail at{" "}
+            <a href="mailto:hello@mikkelkajandersen.dk" className="text-accent hover:text-accent/80 transition-colors">
+              hello@mikkelkajandersen.dk
+            </a>
+            .
+          </p>
         </form>
       </DialogContent>
     </Dialog>
@@ -125,3 +132,4 @@ const ConsultationForm = ({ size = "default" }: ConsultationFormProps) => {
 }
 
 export default ConsultationForm;
+

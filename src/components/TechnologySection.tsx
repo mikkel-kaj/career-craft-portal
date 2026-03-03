@@ -59,6 +59,11 @@ const TechnologySection = () => {
             category: "Backend & Frontend Development",
             icon: <Code className="w-5 h-5 text-accent mb-2" />,
             items: [
+                {
+                    name: "C++",
+                    logo: "/img/tech/cpp.svg",
+                    tooltip: "Built low-latency C++23 exchange components, including matching engine paths, market data broadcasting, and performance-critical concurrency."
+                },
                 { 
                     name: "Java", 
                     logo: "/img/tech/java.svg",

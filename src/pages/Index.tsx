@@ -34,10 +34,10 @@ const Index = () => {
                   <ConsultationForm />
                 </div>
                 <Link 
-                  to="/services" 
+                  to="/profile" 
                   className="w-full md:w-auto inline-flex items-center justify-center h-[44px] px-6 rounded-lg border border-accent/20 text-accent hover:bg-accent/10 transition-colors whitespace-nowrap"
                 >
-                  Explore Services <ArrowRight className="ml-2 h-4 w-4" />
+                  Explore Profile <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </div>
             </div>
@@ -89,7 +89,37 @@ const Index = () => {
               Let's work together to create solutions - I can help you with the following:
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8">
+            <section className="bg-card border border-accent/10 hover:border-accent/30 transition-all group p-6 rounded-lg">
+              <div className="mb-6">
+                <Code className="w-8 md:w-12 h-8 md:h-12 text-accent mb-4" />
+                <h3 className="text-lg md:text-xl text-white mb-2">C++ Exchange Systems</h3>
+                <p className="text-sm md:text-base text-gray-400">
+                  Low-latency C++23 trading and market-data systems for production exchange workflows.
+                </p>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-green-500 mt-1" />
+                  <span className="text-sm text-gray-300">Matching engines and order routing</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-green-500 mt-1" />
+                  <span className="text-sm text-gray-300">Lock-free concurrency and actor patterns</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-green-500 mt-1" />
+                  <span className="text-sm text-gray-300">WebSockets + Protobuf integration</span>
+                </div>
+              </div>
+              <Link
+                to="/profile"
+                className="mt-4 text-sm text-accent hover:text-accent/80 inline-flex items-center group-hover:gap-2 transition-all"
+              >
+                View C++ Experience <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
+            </section>
+
             <section className="bg-card border border-accent/10 hover:border-accent/30 transition-all group p-6 rounded-lg">
               <div className="mb-6">
                 <Code className="w-8 md:w-12 h-8 md:h-12 text-accent mb-4" />
@@ -113,10 +143,10 @@ const Index = () => {
                 </div>
               </div>
               <Link 
-                to="/services" 
+                to="/profile" 
                 className="mt-4 text-sm text-accent hover:text-accent/80 inline-flex items-center group-hover:gap-2 transition-all"
               >
-                View Full-Stack Services <ArrowRight className="ml-1 h-4 w-4" />
+                View Profile <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
             </section>
 
@@ -139,10 +169,10 @@ const Index = () => {
                 </div>
               </div>
               <Link 
-                to="/services" 
+                to="/profile" 
                 className="mt-4 text-sm text-accent hover:text-accent/80 inline-flex items-center group-hover:gap-2 transition-all"
               >
-                View AI Solutions <ArrowRight className="ml-1 h-4 w-4" />
+                View Profile <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
             </section>
 
@@ -165,10 +195,10 @@ const Index = () => {
                 </div>
               </div>
               <Link 
-                to="/services" 
+                to="/profile" 
                 className="mt-4 text-sm text-accent hover:text-accent/80 inline-flex items-center group-hover:gap-2 transition-all"
               >
-                View Architecture Services <ArrowRight className="ml-1 h-4 w-4" />
+                View Profile <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
             </section>
           </div>
@@ -184,7 +214,11 @@ const Index = () => {
               See how we've helped organizations like yours achieve their digital goals.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-8">
+            <div className="bg-card-lighter p-6 rounded-lg border border-accent/10 hover:border-accent/30 transition-all">
+              <h3 className="text-accent font-medium mb-2">Ella Exchange</h3>
+              <p className="text-gray-300 text-sm">Designed and delivered a production-grade intraday power exchange platform in 4 months, including a low-latency C++23 trading engine and full backend/infrastructure stack.</p>
+            </div>
             <div className="bg-card-lighter p-6 rounded-lg border border-accent/10 hover:border-accent/30 transition-all">
               <h3 className="text-accent font-medium mb-2">Tripletex (Norway)</h3>
               <p className="text-gray-300 text-sm">Built and deployed an AI support system handling 10,000+ monthly queries with 80%+ accuracy, ensuring company growth not blocked by support</p>

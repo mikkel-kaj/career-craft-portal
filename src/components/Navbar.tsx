@@ -12,22 +12,17 @@ const Navbar = () => {
           <Link to="/" className="text-base md:text-xl font-bold text-white hover:text-accent transition-colors whitespace-nowrap">
             Mikkel Kaj Andersen
           </Link>
-          
-          {/* Desktop Navigation */}
+
           <div className="hidden md:flex gap-6">
             <Link to="/" className="text-gray-300 hover:text-accent transition-colors">
               Home
-            </Link>
-            <Link to="/services" className="text-gray-300 hover:text-accent transition-colors">
-              Services
             </Link>
             <Link to="/profile" className="text-gray-300 hover:text-accent transition-colors">
               Profile
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button 
+          <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden text-gray-300 hover:text-accent transition-colors"
           >
@@ -35,26 +30,18 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Mobile Navigation Overlay */}
         {isOpen && (
           <div className="md:hidden absolute top-full left-0 right-0 bg-card/95 backdrop-blur-lg border-b border-accent/10">
             <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
-              <Link 
-                to="/" 
+              <Link
+                to="/"
                 className="text-gray-300 hover:text-accent transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 Home
               </Link>
-              <Link 
-                to="/services" 
-                className="text-gray-300 hover:text-accent transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Services
-              </Link>
-              <Link 
-                to="/profile" 
+              <Link
+                to="/profile"
                 className="text-gray-300 hover:text-accent transition-colors"
                 onClick={() => setIsOpen(false)}
               >

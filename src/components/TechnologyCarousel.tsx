@@ -19,6 +19,13 @@ interface Technology {
 }
 
 const technologies: Technology[] = [
+    {
+        name: "C++",
+        logo: "/img/tech/cpp.svg",
+        tooltip: "Built low-latency exchange components in C++23, including matching engine and market-data paths with actor-based concurrency and lock-free queues.",
+        category: 'development',
+        position: { x: -230, y: -50 }
+    },
     { 
         name: "Java", 
         logo: "/img/tech/java.svg",
@@ -138,13 +145,6 @@ const technologies: Technology[] = [
         category: 'ai_and_data',
         position: { x: 200, y: 0 }
     },
-    { 
-        name: "Statistical Analysis", 
-        logo: "/img/tech/statistical_analysis.svg",
-        tooltip: "Experience with probabilistic programming and statistical methods.",
-        category: 'ai_and_data',
-        position: { x: 250, y: 50 }
-    }
 ];
 
 interface CategoryButton {

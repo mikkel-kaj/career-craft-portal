@@ -7,10 +7,25 @@ const WorkExperience = () => {
                 <h2 className="text-3xl font-bold text-white mb-8 text-center">Professional Experience</h2>
                 <div className="space-y-8">
                     <SimpleWorkExperienceItem
+                        company="ELLA EXCHANGE"
+                        role="CTO"
+                        period="Oct 2025 - Mar 2026"
+                        defaultOpen={true}
+                        description="Sole technical hire at a NEMO-licensed intraday power exchange. Designed and delivered a complete production-grade exchange platform from scratch in 4 months."
+                        responsibilities={[
+                            "Built a low-latency C++23 multi-process matching engine with isolated order-entry and market-data paths",
+                            "Implemented actor-based concurrency using std::jthread actors and custom lock-free MPMC queues",
+                            "Shipped Protobuf-serialized WebSocket messaging and Auth0 JWT/JWKS verification at the C++ edge",
+                            "Delivered Go backend services for trade processing, nominations, and settlement with gRPC, PostgreSQL, and Temporal",
+                            "Set up bare-metal infrastructure on Hetzner using Terraform and Ansible, with observability via OpenTelemetry"
+                        ]}
+                        technologies={["C++23", "uWebSockets", "Protobuf", "CMake", "vcpkg", "Go", "gRPC", "PostgreSQL", "Temporal", "Terraform", "Ansible", "OpenTelemetry"]}
+                    />
+
+                    <SimpleWorkExperienceItem
                         company="VISMA"
                         role="AI Tech Lead"
-                        period="Aug 2023 - Present"
-                        defaultOpen={true}
+                        period="Aug 2023 - Jan 2025"
                         description="As AI Tech Lead, I drive the end-to-end development of AI solutions, from architecture to deployment. Working closely with Product Management to align technical implementation with business objectives, I lead the team in delivering sophisticated AI services while ensuring best practices in cloud infrastructure, CI/CD, and system design. In addition to everything mentioned under AI Developer, I also handle the following:"
                         responsibilities={[
                             "Lead the technical strategy and implementation of AI services, including architecture design and CI/CD pipelines",
