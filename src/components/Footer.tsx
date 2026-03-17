@@ -1,9 +1,11 @@
 import { Linkedin } from "lucide-react";
-import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-card border-t border-accent/10 py-8 mt-auto">
+    <footer className="bg-card py-8 mt-auto relative" aria-label="Footer">
+      {/* Gradient border top */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
+
       <div className="container mx-auto max-w-7xl px-4">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-gray-400 text-sm">
@@ -16,10 +18,10 @@ const Footer = () => {
               href="https://www.linkedin.com/in/mikkel-kaj-andersen-b0a097a5/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-accent hover:text-accent/80 transition-colors"
+              className="text-accent hover:text-accent/80 hover:drop-shadow-[0_0_8px_rgba(251,191,36,0.3)] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
+              aria-label="LinkedIn Profile"
             >
               <Linkedin className="w-6 h-6" />
-              <span className="sr-only">LinkedIn Profile</span>
             </a>
           </div>
         </div>
@@ -28,4 +30,4 @@ const Footer = () => {
   );
 };
 
-export default Footer; 
+export default Footer;

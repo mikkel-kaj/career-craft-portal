@@ -1,42 +1,10 @@
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
-import {Card, CardContent} from "@/components/ui/card";
-import {Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious} from "@/components/ui/carousel";
+import { Avatar } from "@/components/ui/avatar";
+import { Card, CardContent } from "@/components/ui/card";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Autoplay from 'embla-carousel-autoplay';
 import ImageWithFallback from "./ui/image-with-fallback";
-
-interface TestimonialProps {
-    name: string;
-    role: string;
-    company: string;
-    image?: string;
-    content: string;
-}
-
-const Testimonial = ({name, role, company, image, content}: TestimonialProps) => (
-    <Card
-        className="relative overflow-hidden group hover:shadow-xl transition-all duration-300 bg-card-lighter h-full border-border/5">
-        <CardContent className="p-6 md:p-8 space-y-4 md:space-y-6">
-            <div className="flex items-start gap-4 md:gap-6">
-                <Avatar className="w-20 h-20 border-2 border-accent/20 shadow-lg">
-                    <ImageWithFallback src={image || "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952"} alt={name} />
-                </Avatar>
-
-                <div className="flex-1 min-w-0">
-                    <h4 className="text-xl md:text-2xl font-bold text-link truncate">{name}</h4>
-                    <p className="text-sm md:text-base text-muted-foreground font-medium">{role}</p>
-                    <p className="text-sm md:text-base text-muted-foreground truncate">{company}</p>
-                </div>
-            </div>
-
-            <div className="relative">
-                <div className="absolute left-0 top-0 w-0.5 h-full bg-accent/20 rounded-full"/>
-                <blockquote className="pl-4 md:pl-6 text-sm md:text-base text-muted-foreground leading-relaxed italic">
-                    {content}
-                </blockquote>
-            </div>
-        </CardContent>
-    </Card>
-);
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useMemo } from "react";
 
 interface CompanyLogoProps {
     src: string;
@@ -45,34 +13,35 @@ interface CompanyLogoProps {
 }
 
 const CompanyLogoItem = ({ src, alt, name }: CompanyLogoProps) => (
-    <div className="flex flex-col items-center space-y-1 md:space-y-2 p-2 md:p-4 bg-card-lighter rounded-lg hover:shadow-lg transition-all text-center">
-        <ImageWithFallback 
-            src={src} 
+    <div className="flex flex-col items-center space-y-1 md:space-y-2 p-3 md:p-4 glass rounded-lg hover:shadow-lg transition-all text-center group min-h-[60px]">
+        <ImageWithFallback
+            src={src}
             alt={alt}
-            className="h-8 md:h-12 w-auto bg-white rounded-lg opacity-70 hover:opacity-100 transition-opacity"
+            className="h-8 md:h-12 w-auto bg-white rounded-lg opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all"
         />
-        <span className="text-[10px] md:text-xs font-medium text-muted-foreground line-clamp-2">{name}</span>
+        <span className="text-[10px] md:text-xs font-medium text-gray-300 line-clamp-2">{name}</span>
     </div>
 );
 
 const companies: CompanyLogoProps[] = [
-    { src: "/img/resolve_logo.png", alt: "Resolve", name: "Resolve" },
-    { src: "/img/visma-enterprise_logo.svg", alt: "Visma Enterprise", name: "Visma Enterprise" },
-    { src: "/img/tripletex_logo.png", alt: "Tripletex", name: "Tripletex" },
-    { src: "/img/netcompany_logo.png", alt: "Netcompany", name: "Netcompany" },
-    { src: "/img/itminds_logo.jpg", alt: "IT-minds", name: "IT-minds" },
-    { src: "/img/keylane_logo.png", alt: "Keylane", name: "Keylane" },
-    { src: "/img/mim_logo.png", alt: "Make It Matter", name: "Make It Matter" },
-    { src: "/img/godream_logo.jpeg", alt: "GoDream", name: "GoDream" },
-    { src: "/img/itu_logo.png", alt: "ITU", name: "IT-University of Copenhagen" },
+    { src: "/img/resolve_logo.png", alt: "Resolve company logo", name: "Resolve" },
+    { src: "/img/visma-enterprise_logo.svg", alt: "Visma Enterprise company logo", name: "Visma Enterprise" },
+    { src: "/img/tripletex_logo.png", alt: "Tripletex company logo", name: "Tripletex" },
+    { src: "/img/netcompany_logo.png", alt: "Netcompany company logo", name: "Netcompany" },
+    { src: "/img/itminds_logo.jpg", alt: "IT-minds company logo", name: "IT-minds" },
+    { src: "/img/keylane_logo.png", alt: "Keylane company logo", name: "Keylane" },
+    { src: "/img/mim_logo.png", alt: "Make It Matter company logo", name: "Make It Matter" },
+    { src: "/img/godream_logo.jpeg", alt: "GoDream company logo", name: "GoDream" },
+    { src: "/img/itu_logo.png", alt: "IT-University of Copenhagen logo", name: "IT-University of Copenhagen" },
+    { src: "/img/sjaellandske_medier_logo.svg", alt: "Sjællandske Medier company logo", name: "Sjællandske Medier" },
 ];
 
 const CompanyLogos = () => (
-    <div className="mt-8 pt-8 border-t border-border/10">
-        <h3 className="text-lg md:text-xl font-semibold text-link mb-6 text-center">
+    <div className="mt-6 pt-6 border-t border-border/10">
+        <h3 className="text-base md:text-lg font-semibold text-link mb-4 text-center">
             Companies I've Worked With
         </h3>
-        <div className="grid grid-cols-3 gap-2 md:gap-6">
+        <div className="grid grid-cols-3 md:grid-cols-5 gap-1.5 md:gap-3">
             {companies.map((company) => (
                 <CompanyLogoItem key={company.name} {...company} />
             ))}
@@ -80,7 +49,48 @@ const CompanyLogos = () => (
     </div>
 );
 
+interface TestimonialProps {
+    name: string;
+    role: string;
+    company: string;
+    image?: string;
+    content: string;
+    index: number;
+}
+
+const Testimonial = ({ name, role, company, image, content, index }: TestimonialProps) => (
+    <Card
+        className="relative overflow-hidden group hover:shadow-xl transition-all duration-300 glass-light h-full">
+        <CardContent className="p-6 md:p-8 space-y-4 md:space-y-6">
+            <span className="absolute top-2 right-4 text-8xl font-bold text-accent/5 select-none leading-none" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+            </span>
+
+            <div className="flex items-start gap-4 md:gap-6 relative z-10">
+                <Avatar className="w-20 h-20 border-2 border-accent/20 shadow-lg">
+                    <ImageWithFallback src={image || "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952"} alt={`Photo of ${name}`} />
+                </Avatar>
+
+                <div className="flex-1 min-w-0">
+                    <h4 className="text-xl md:text-2xl font-bold text-link truncate">{name}</h4>
+                    <p className="text-sm md:text-base text-gray-300 font-medium">{role}</p>
+                    <p className="text-sm md:text-base text-gray-300 truncate">{company}</p>
+                </div>
+            </div>
+
+            <div className="relative">
+                <div className="absolute left-0 top-0 w-0.5 h-full bg-gradient-to-b from-accent to-accent/20 rounded-full"/>
+                <blockquote className="pl-4 md:pl-6 text-sm md:text-base text-gray-300 leading-relaxed italic">
+                    {content}
+                </blockquote>
+            </div>
+        </CardContent>
+    </Card>
+);
+
 const Testimonials = () => {
+    const reducedMotion = useReducedMotion();
+
     const testimonials = [
         {
             name: "Morten Nørgaard Larsen",
@@ -100,11 +110,11 @@ I am confident that Mikkel will bring the same dedication and skill to any organ
             company: "Resolve",
             image: "/img/people/martin_sommerseth.jpg",
             content: `Mikkel transitioned into a Tech Lead role due to his exceptional technical deliveries and leadership abilities.
-            
+
             Mikkel also showcased strong project management skills, particularly in leading the PostNord project to success by balancing technical implementation and aligning different parties.
-            
+
             In tech strategy contribution, he actively participated in shaping the central tech strategy at Resolve, demonstrating initiative and foresight in the LLM strategy and its potential role in the AI API strategy.
-            
+
             For team collaboration, Mikkel has improved in involving team members early in various initiatives, sharing knowledge, and enabling independent work within the team, though there is still room for growth in this area.`
         },
         {
@@ -113,7 +123,7 @@ I am confident that Mikkel will bring the same dedication and skill to any organ
             company: "Resolve",
             image: "/img/people/stian_vale.jpg",
             content: `Mikkel's work on Automatic Rostering received positive feedback from Postnord. All stakeholders involved are extremely pleased with the deliveries, which were primarily led and implemented by Mikkel.
-            
+
             He significantly enhanced the Automatic Rostering product, preparing it for further growth. What was once an "unsure Resolve card" a year ago has now become one of our standout products, thanks to the technological advancements made.`
         },
         {
@@ -141,12 +151,16 @@ tryghed at vide, at vi kan regne med hans ekspertise, og vi ser frem til fortsat
         }
     ];
 
-    const plugin = Autoplay({delay: 15000, stopOnInteraction: true});
+    const plugin = useMemo(() => Autoplay({
+        delay: 15000,
+        stopOnInteraction: true,
+        playOnInit: !reducedMotion,
+    }), [reducedMotion]);
 
     return (
-        <section className="md:py-8">
+        <section className="md:py-6">
             <div className="container max-w-4xl mx-auto">
-                <h2 className="text-xl md:text-2xl font-bold text-link mb-6 md:mb-8 text-center">
+                <h2 className="text-xl md:text-2xl font-bold text-link mb-4 md:mb-6 text-center">
                     <span className="relative inline-block">
                         ... here's some honest feedback I've received
                     </span>
@@ -159,20 +173,21 @@ tryghed at vide, at vi kan regne med hans ekspertise, og vi ser frem til fortsat
                     }}
                     plugins={[plugin]}
                     className="w-full"
+                    aria-label="Testimonials carousel"
                 >
                     <CarouselContent>
                         {testimonials.map((testimonial, index) => (
                             <CarouselItem key={index}>
-                                <Testimonial {...testimonial} />
+                                <Testimonial {...testimonial} index={index} />
                             </CarouselItem>
                         ))}
                     </CarouselContent>
                     <div className="hidden md:flex justify-center gap-4 mt-6">
-                        <CarouselPrevious className="bg-gray-800 text-white" />
-                        <CarouselNext className="bg-gray-800 text-white" />
+                        <CarouselPrevious className="bg-gray-800 text-white" aria-label="Previous testimonial" />
+                        <CarouselNext className="bg-gray-800 text-white" aria-label="Next testimonial" />
                     </div>
                 </Carousel>
-                <CompanyLogos/>
+                <CompanyLogos />
             </div>
         </section>
     );

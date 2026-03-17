@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import {
@@ -16,6 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { ArrowRight, Mail } from "lucide-react";
+import { motion } from "framer-motion";
 
 const NavbarCTA = () => {
   const [name, setName] = useState("");
@@ -36,7 +37,7 @@ const NavbarCTA = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-300 group cursor-pointer">
+        <button className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors duration-300 group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full">
           <span className="relative flex h-1.5 w-1.5">
             <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-pulse-dot" />
             <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
@@ -51,7 +52,7 @@ const NavbarCTA = () => {
             <Mail className="w-6 h-6 text-accent" />
             Schedule Your Consultation
           </DialogTitle>
-          <DialogDescription className="text-gray-400 text-base">
+          <DialogDescription className="text-gray-300 text-base">
             Take the first step towards transforming your technical challenges into opportunities.
           </DialogDescription>
         </DialogHeader>
@@ -114,60 +115,93 @@ const NavbarCTA = () => {
   );
 };
 
+interface NavLinkProps {
+  to: string;
+  children: React.ReactNode;
+  isActive: boolean;
+  onClick?: () => void;
+}
+
+const NavLink = ({ to, children, isActive, onClick }: NavLinkProps) => (
+  <Link
+    to={to}
+    onClick={onClick}
+    className="relative px-3 py-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full"
+    aria-current={isActive ? "page" : undefined}
+  >
+    <span className={isActive ? "text-white" : "text-gray-300 hover:text-gray-100"}>
+      {children}
+    </span>
+    {isActive && (
+      <motion.div
+        layoutId="tubelight"
+        className="absolute inset-0 rounded-full bg-accent/10 border border-accent/20"
+        style={{ zIndex: -1 }}
+        transition={{ type: "spring", stiffness: 350, damping: 30 }}
+      >
+        <div className="absolute -top-px left-3 right-3 h-px bg-accent/60" />
+      </motion.div>
+    )}
+  </Link>
+);
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-card/80 backdrop-blur-lg border-b border-accent/10">
-      <div className="container mx-auto px-4 py-4">
+    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100vw-2rem)] max-w-2xl">
+      <div className="bg-card/60 backdrop-blur-xl rounded-full border border-accent/10 px-4 py-2.5 shadow-lg shadow-black/20">
         <div className="flex justify-between items-center">
-          <Link to="/" className="text-base md:text-xl font-bold text-white hover:text-accent transition-colors whitespace-nowrap">
+          <Link
+            to="/"
+            className="text-sm md:text-base font-bold text-white hover:text-accent transition-colors whitespace-nowrap pl-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
+          >
             Mikkel Kaj Andersen
           </Link>
 
-          <div className="hidden md:flex items-center gap-6">
-            <Link to="/" className="text-gray-300 hover:text-accent transition-colors">
+          <div className="hidden md:flex items-center gap-1">
+            <NavLink to="/" isActive={location.pathname === "/"}>
               Home
-            </Link>
-            <Link to="/profile" className="text-gray-300 hover:text-accent transition-colors">
+            </NavLink>
+            <NavLink to="/profile" isActive={location.pathname === "/profile"}>
               Profile
-            </Link>
-            <span className="text-gray-600">|</span>
+            </NavLink>
+            <span className="text-gray-600 mx-1">|</span>
             <NavbarCTA />
           </div>
 
-          <div className="flex items-center gap-4 md:hidden">
+          <div className="flex items-center gap-3 md:hidden">
             <NavbarCTA />
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:text-accent transition-colors"
+              className="text-gray-300 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded p-1"
+              aria-label={isOpen ? "Close menu" : "Open menu"}
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
-
-        {isOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-card/95 backdrop-blur-lg border-b border-accent/10">
-            <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
-              <Link
-                to="/"
-                className="text-gray-300 hover:text-accent transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Home
-              </Link>
-              <Link
-                to="/profile"
-                className="text-gray-300 hover:text-accent transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Profile
-              </Link>
-            </div>
-          </div>
-        )}
       </div>
+
+      {/* Mobile menu */}
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          className="md:hidden mt-2 bg-card/90 backdrop-blur-xl rounded-2xl border border-accent/10 overflow-hidden shadow-lg shadow-black/20"
+        >
+          <div className="px-4 py-3 flex flex-col gap-2">
+            <NavLink to="/" isActive={location.pathname === "/"} onClick={() => setIsOpen(false)}>
+              Home
+            </NavLink>
+            <NavLink to="/profile" isActive={location.pathname === "/profile"} onClick={() => setIsOpen(false)}>
+              Profile
+            </NavLink>
+          </div>
+        </motion.div>
+      )}
     </nav>
   );
 };

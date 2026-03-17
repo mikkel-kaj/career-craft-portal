@@ -1,32 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from "react";
+import { useInView } from "framer-motion";
 
 export const useScrollAnimation = () => {
   const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-slide-in');
-          entry.target.classList.remove('opacity-0');
-          observer.unobserve(entry.target);
-        }
-      },
-      {
-        threshold: 0.1,
-      }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, []);
-
-  return ref;
+  return { ref, isInView };
 };

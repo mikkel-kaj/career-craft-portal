@@ -33,6 +33,10 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    --glass-bg: rgba(26, 29, 36, 0.6);
+    --glass-border: rgba(251, 191, 36, 0.08);
+    --glass-bg-light: rgba(34, 38, 47, 0.6);
   }
 
   .dark {
@@ -79,5 +83,19 @@
 @layer components {
   .font-roboto {
     font-family: 'Roboto', sans-serif;
+  }
+
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+  }
+
+  .glass-light {
+    background: var(--glass-bg-light);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
   }
 }

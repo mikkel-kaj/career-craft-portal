@@ -1,4 +1,4 @@
-import { Code, Brain, Cloud, Database, HelpCircle } from "lucide-react";
+import { Code, Brain, Cloud, Database } from "lucide-react";
 import {
     Tooltip,
     TooltipContent,
@@ -7,192 +7,103 @@ import {
 } from "./ui/tooltip";
 import ImageWithFallback from "./ui/image-with-fallback";
 
-// TechnologyItem component
-const TechnologyItem = ({ tech }: { tech: { name: string; logo: string; tooltip: string } }) => (
+const TechBadge = ({ tech }: { tech: { name: string; logo: string; tooltip: string } }) => (
     <TooltipProvider delayDuration={0}>
         <Tooltip>
             <TooltipTrigger asChild>
-                <div className="flex flex-col items-center p-2 md:p-3 bg-card rounded-lg hover:bg-card-lighter transition-colors cursor-pointer relative group">
-                    <div className="relative">
-                        <ImageWithFallback
-                            src={tech.logo}
-                            alt={`${tech.name} logo`}
-                            className="w-6 h-6 md:w-8 md:h-8 mb-1 md:mb-2"
-                            fallbackClassName="w-6 h-6 md:w-8 md:h-8 mb-1 md:mb-2"
-                        />
-                        <div className="absolute -top-1 -right-1 md:-top-2 md:-right-2 bg-accent/2 rounded-full p-0.5 md:p-1">
-                            <HelpCircle className="w-2 h-2 md:w-3 md:h-3 text-accent" />
-                        </div>
-                    </div>
-                    <span className="text-xs md:text-sm text-gray-300 text-center line-clamp-2">{tech.name}</span>
-                </div>
+                <button
+                    type="button"
+                    className="inline-flex items-center gap-2 px-2.5 py-1.5 glass rounded-md hover:bg-card-lighter/80 transition-colors cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                >
+                    <ImageWithFallback
+                        src={tech.logo}
+                        alt={`${tech.name} logo`}
+                        className="w-[22px] h-[22px] group-hover:scale-110 transition-transform"
+                        fallbackClassName="w-[22px] h-[22px]"
+                    />
+                    <span className="text-[15px] text-gray-300 group-hover:text-white transition-colors whitespace-nowrap">{tech.name}</span>
+                </button>
             </TooltipTrigger>
-            <TooltipContent className="max-w-xs bg-card-lighter">
+            <TooltipContent className="max-w-xs glass-light" side="top">
                 <p className="text-sm">{tech.tooltip}</p>
             </TooltipContent>
         </Tooltip>
     </TooltipProvider>
 );
 
-// TechnologyCategory component
-const TechnologyCategory = ({ category, icon, items }: { 
-    category: string; 
-    icon: React.ReactNode; 
-    items: Array<{ name: string; logo: string; tooltip: string }> 
-}) => (
-    <div className="space-y-3 md:space-y-4">
-        <div className="flex items-center gap-2 px-2 md:px-0">
-            {icon}
-            <h4 className="text-base md:text-lg font-semibold text-accent">{category}</h4>
-        </div>
-        <div className="grid grid-cols-4 md:grid-cols-3 gap-2 md:gap-4">
-            {items.map((tech) => (
-                <TechnologyItem key={tech.name} tech={tech} />
-            ))}
-        </div>
-    </div>
-);
+const categoryColors: Record<string, string> = {
+    "Languages & Frameworks": "bg-accent",
+    "Cloud & DevOps": "bg-blue-400",
+    "AI & Modeling": "bg-green-400",
+    "Data": "bg-purple-400",
+};
+
+const categories = [
+    {
+        name: "Languages & Frameworks",
+        icon: <Code className="w-4 h-4 text-accent" />,
+        items: [
+            { name: "C++", logo: "/img/tech/cpp.svg", tooltip: "Built low-latency C++23 exchange components at Ella Exchange." },
+            { name: "Java", logo: "/img/tech/java.svg", tooltip: "Enterprise apps with Spring Boot at Netcompany and Keylane." },
+            { name: "C#", logo: "/img/tech/csharp.svg", tooltip: "6 years — .NET microservices at Visma Enterprise." },
+            { name: "Python", logo: "/img/tech/python.svg", tooltip: "Algorithms, ML, and backend services with Django/Flask." },
+            { name: "TypeScript", logo: "/img/tech/typescript.svg", tooltip: "Type-safe JS for React frontends and Node backends." },
+            { name: "React", logo: "/img/tech/react.svg", tooltip: "Responsive, performant web applications." },
+            { name: "Flutter", logo: "/img/tech/flutter.svg", tooltip: "All freelance mobile apps built with Flutter." },
+        ]
+    },
+    {
+        name: "Cloud & DevOps",
+        icon: <Cloud className="w-4 h-4 text-accent" />,
+        items: [
+            { name: "AWS", logo: "/img/tech/aws.svg", tooltip: "AWS Developer Associate. Lambda, S3, CloudFormation." },
+            { name: "Docker", logo: "/img/tech/docker.svg", tooltip: "Containerization at Visma and all deployment pipelines." },
+            { name: "CI/CD", logo: "/img/tech/cicd.svg", tooltip: "Jenkins, GitHub Actions, AWS CodePipeline." },
+            { name: "Azure", logo: "/img/tech/azure.svg", tooltip: "Azure cloud services and Microsoft ecosystem." },
+        ]
+    },
+    {
+        name: "AI & Modeling",
+        icon: <Brain className="w-4 h-4 text-accent" />,
+        items: [
+            { name: "LLM / DL", logo: "/img/tech/deep_learning.svg", tooltip: "TensorFlow, PyTorch, BERT, GPT, Llama 3 — custom GenAI." },
+            { name: "Algorithms", logo: "/img/tech/predictive_modeling.svg", tooltip: "Optimization, constraint satisfaction, mathematical programming." },
+            { name: "ML Models", logo: "/img/tech/predictive_modeling.svg", tooltip: "Logistic regression, decision trees, neural networks." },
+        ]
+    },
+    {
+        name: "Data",
+        icon: <Database className="w-4 h-4 text-accent" />,
+        items: [
+            { name: "PostgreSQL", logo: "/img/tech/postgresql.svg", tooltip: "PostgreSQL, MySQL, T-SQL, DynamoDB, Redis." },
+            { name: "EF Core", logo: "/img/tech/ef.svg", tooltip: "ORM development and database migrations in .NET." },
+            { name: "Spring", logo: "/img/tech/spring.svg", tooltip: "Enterprise applications at Netcompany and Keylane." },
+        ]
+    },
+];
 
 const TechnologySection = () => {
-    const technologies = [
-        {
-            category: "Backend & Frontend Development",
-            icon: <Code className="w-5 h-5 text-accent mb-2" />,
-            items: [
-                {
-                    name: "C++",
-                    logo: "/img/tech/cpp.svg",
-                    tooltip: "Built low-latency C++23 exchange components, including matching engine paths, market data broadcasting, and performance-critical concurrency."
-                },
-                { 
-                    name: "Java", 
-                    logo: "/img/tech/java.svg",
-                    tooltip: "Built enterprise applications with Spring Boot at Netcompany and Keylane, along with experience from many other projects. Was my primary language in competitive programming."
-                },
-                { 
-                    name: "C#", 
-                    logo: "/img/tech/csharp.svg",
-                    tooltip: "6 years of experience in C# development. Developed .NET applications as a fullstack developer at Visma Enterprise with microservices architecture, specializing in API development with EFCore and other tools. Completed various freelance projects with C#."
-                },
-                { 
-                    name: "Python", 
-                    logo: "/img/tech/python.svg",
-                    tooltip: "Auxillary developer in Python building web server applications, algorithm development, infrastructure and APIs with Django and Flask."
-                },
-                { 
-                    name: "Flutter", 
-                    logo: "/img/tech/flutter.svg",
-                    tooltip: "All of my freelance projects have been built with Flutter except 'The Tattoo Archive'."
-                },
-                { 
-                    name: "TypeScript", 
-                    logo: "/img/tech/typescript.svg",
-                    tooltip: "Strong expertise in type-safe JavaScript development and modern frontend frameworks."
-                },
-                { 
-                    name: "React", 
-                    logo: "/img/tech/react.svg",
-                    tooltip: "Proficient in building responsive and performant web applications with React and its ecosystem."
-                }
-            ]
-        },
-        {
-            category: "Cloud & DevOps",
-            icon: <Cloud className="w-5 h-5 text-accent mb-2" />,
-            items: [
-                { 
-                    name: "AWS", 
-                    logo: "/img/tech/aws.svg",
-                    tooltip: "AWS Developer Assosciate with experience in designing and implementing cloud infrastructure at Visma Resolve and various freelance projects."
-                },
-                { 
-                    name: "Docker", 
-                    logo: "/img/tech/docker.svg",
-                    tooltip: "Containerization and orchestration of applications using Docker at Visma."
-                },
-                { 
-                    name: "CI/CD", 
-                    logo: "/img/tech/cicd.svg",
-                    tooltip: "Implementation of automated deployment pipelines using Jenkins, GitHub Actions, and AWS CodePipeline."
-                },
-                { 
-                    name: "Azure (occasional)", 
-                    logo: "/img/tech/azure.svg",
-                    tooltip: "Experience with Azure cloud services and integration with Microsoft ecosystem."
-                },
-                { 
-                    name: "Monitoring", 
-                    logo: "/img/tech/monitoring.svg",
-                    tooltip: "Proficient in building dashboards to monitor product lifecycles from end to end, analyzing logs and errors to ensure product reliability and performance in tools like Prometheus, Grafana, and CloudWatch."
-                }
-            ]
-        },
-        {
-            category: "Predictive Modeling & AI",
-            icon: <Brain className="w-5 h-5 text-accent mb-2" />,
-            items: [
-                { 
-                    name: "Algorithm Design", 
-                    logo: "/img/tech/predictive_modeling.svg",
-                    tooltip: "Expert in designing and implementing complex algorithms for optimization problems, including roster optimization, constraint satisfaction, and mathematical programming."
-                },
-                { 
-                    name: "Predictive Modeling", 
-                    logo: "/img/tech/predictive_modeling.svg",
-                    tooltip: "Skilled in creating various machine learning models, such as logistic regression, decision trees, and neural networks."
-                },
-                { 
-                    name: "LLM and Deep Learning", 
-                    logo: "/img/tech/deep_learning.svg",
-                    tooltip: "Proficient in using tools/models like TensorFlow, PyTorch, BERT, GPT, and Llama 3, to develop and implement custom GenAI solutions."
-                },
-                { 
-                    name: "Mathematical Optimization", 
-                    logo: "/img/tech/statistical_analysis.svg",
-                    tooltip: "Experience in implementing complex mathematical optimization models for workforce planning, including linear programming, integer programming, and constraint programming for automatic roster generation."
-                },
-                { 
-                    name: "Statistical Analysis", 
-                    logo: "/img/tech/statistical_analysis.svg",
-                    tooltip: "Experience with probabilistic programming and statistical methods."
-                },
-            ]
-        },
-        {
-            category: "Data Engineering",
-            icon: <Database className="w-5 h-5 text-accent mb-2" />,
-            items: [
-                { 
-                    name: "PostgreSQL", 
-                    logo: "/img/tech/postgresql.svg",
-                    tooltip: "Database design, optimization, and management in PostgreSQL/MySql/T-SQL, DynamoDB, and Redis."
-                },
-                { 
-                    name: "Entity Framework", 
-                    logo: "/img/tech/ef.svg",
-                    tooltip: "Used during ORM development and database migration setup."
-                },
-                { 
-                    name: "Spring Boot", 
-                    logo: "/img/tech/spring.svg",
-                    tooltip: "Worked on enterprise applications with Spring Boot at Netcompany and Keylane."
-                },
-            ]
-        }
-    ];
-
     return (
-        <div className="bg-card-lighter rounded-xl p-4 md:p-6">
-            <h3 className="text-lg md:text-xl font-bold text-white mb-4 md:mb-6 px-2 md:px-0">Technologies & Expertise</h3>
-            <div className="space-y-6 md:space-y-8">
-                {technologies.map((category, index) => (
-                    <TechnologyCategory 
-                        key={index} 
-                        category={category.category} 
-                        icon={category.icon} 
-                        items={category.items} 
-                    />
-                ))}
+        <div className="glass-light rounded-xl p-5 border border-accent/10">
+            <h3 className="text-lg font-bold text-white mb-4">Technologies</h3>
+            <div className="space-y-4">
+                {categories.map((cat) => {
+                    const dotColor = categoryColors[cat.name] || "bg-accent";
+                    return (
+                        <div key={cat.name}>
+                            <div className="flex items-center gap-2 mb-2">
+                                <div className={`w-2 h-2 rounded-full ${dotColor}`} />
+                                {cat.icon}
+                                <span className="text-[15px] font-medium text-gray-400">{cat.name}</span>
+                            </div>
+                            <div className="flex flex-wrap gap-1.5">
+                                {cat.items.map((tech) => (
+                                    <TechBadge key={tech.name} tech={tech} />
+                                ))}
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );
